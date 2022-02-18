@@ -187,6 +187,7 @@ export default defineComponent({
           "draw",
           "icon",
           "text",
+          'filter' // 添加滤镜
         ],
         // 菜单位置在下面
         menuBarPosition: "bottom",
@@ -211,18 +212,9 @@ export default defineComponent({
 
     function uploadEditImg() {
       let canvas = document.getElementsByTagName("canvas")[0]
+      //获取当前画布，然后把画布转换成base64形式
       const base64String = canvas.toDataURL();
-      const data = window.atob(base64String.split(",")[1]);
-      const ia = new Uint8Array(data.length);
-      for (let i = 0; i < data.length; i++) {
-        ia[i] = data.charCodeAt(i);
-      }
-      const file = new File([ia], "图片名称", {"type": "image/png"});
-      const fd = new FormData();
-      fd.append("file", file);
-      fd.append("groupId", this.editGroupId);
-      fd.append("type", 4);
-      console.log(fd)
+      console.log(base64String)
     }
 
     return {
